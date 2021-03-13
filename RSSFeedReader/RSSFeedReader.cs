@@ -38,7 +38,20 @@ namespace RSSFeedReader
         /// </returns>
         public bool IsFeedActive(Feed feed, int days, DateTime refDate)
         {
-            throw new NotImplementedException();
+            if (feed == null || feed.Items == null || !feed.Items.Any()) return false;
+
+            var last = feed.Items.Max(x => x.PublishingDate);
+
+            try
+            {
+                refDate = refDate.AddDays(-days);
+            }
+            catch
+            {
+                refDate = DateTime.MinValue;
+            }
+
+            return last > refDate;
         }
     }
 }
