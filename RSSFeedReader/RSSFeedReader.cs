@@ -17,7 +17,19 @@ namespace RSSFeedReader
         /// <returns>Returns a list of the companies that have had no activity for the given number of days</returns>
         public async Task<List<string>> FindInactiveFeeds(Dictionary<string, string> feeds, int days)
         {
-            throw new NotImplementedException();
+            var inactiveCompanyFeeds = new List<string>();
+
+            foreach (var companyFeed in feeds)
+            {
+                var feed = await FeedReader.ReadAsync(companyFeed.Value);
+
+                if (!IsFeedActive(feed, days, DateTime.Now))
+                {
+                    inactiveCompanyFeeds.Add(companyFeed.Key);
+                }
+            }
+
+            return inactiveCompanyFeeds;
         }
 
         // Helper Methods -------------------------------------------------------------------------
