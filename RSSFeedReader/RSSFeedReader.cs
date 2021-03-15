@@ -12,24 +12,33 @@ namespace RSSFeedReader
         /// Given a dictionary of companies and their RSS feed urls and a number of days this method 
         /// will return a list of the companies that have had no activity for that length of time.
         /// </summary>
-        /// <param name="feeds">Dictionary keyed by Company and valued by RSS feed url</param>
+        /// <param name="companyFeeds">Dictionary keyed by Company and valued by RSS feed urls</param>
         /// <param name="days">Number of days to be defined as "inactive"</param>
-        /// <returns>Returns a list of the companies that have had no activity for the given number of days</returns>
-        public async Task<List<string>> FindInactiveFeeds(Dictionary<string, string> feeds, int days)
+        /// <returns>
+        /// A list of the companies that have had no activity on any of their feeds for the given number of days
+        /// </returns>
+        public async Task<List<string>> FindInactiveFeeds(Dictionary<string, List<string>> companyFeeds, int days)
         {
-            var inactiveCompanyFeeds = new List<string>();
-
-            foreach (var companyFeed in feeds)
+            var inactiveCompanies = new List<string>();
+            foreach (var company in companyFeeds)
             {
-                var feed = await FeedReader.ReadAsync(companyFeed.Value);
-
-                if (!IsFeedActive(feed, days, DateTime.Now))
+                var isActive = false;
+                foreach (var url in company.Value)
                 {
-                    inactiveCompanyFeeds.Add(companyFeed.Key);
+                    var feed = await FeedReader.ReadAsync(url);
+                    if (isActive = IsFeedActive(feed, days, DateTime.Now))
+                    {
+                        break;
+                    }
+                }
+
+                if (!isActive)
+                {
+                    inactiveCompanies.Add(company.Key);
                 }
             }
 
-            return inactiveCompanyFeeds;
+            return inactiveCompanies;
         }
 
         // Helper Methods -------------------------------------------------------------------------

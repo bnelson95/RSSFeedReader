@@ -8,24 +8,40 @@ namespace RSSFeedReader
     {
         static void Main(string[] args)
         {
-            var companyFeeds = new Dictionary<string, string>
+            var companyFeeds = new Dictionary<string, List<string>>
             {
-                { "Apology Line",        "https://rss.art19.com/apology-line"            },
-                { "New York Times",      "http://rss.art19.com/the-daily"                },
-                { "Bible",               "https://feeds.fireside.fm/bibleinayear/rss"    },
-                { "Crime Junky",         "https://feeds.megaphone.fm/ADL9840290619"      },
-                { "The Experiment",      "http://feeds.wnyc.org/experiment_podcast"      },
-                { "Dan Bongino",         "https://feeds.megaphone.fm/WWO3519750118"      },
-                { "Unrivaled",           "https://rss.acast.com/unraveled"               },
-                { "Morbid",              "https://audioboom.com/channels/4997220.rss"    },
-                { "NBC",                 "https://podcastfeeds.nbcnews.com/dateline-nbc" },
-                { "The Lincoln Project", "https://lincolnproject.libsyn.com/rss"         },
+                { "ART19", new List<string> {
+                    "https://rss.art19.com/apology-line",
+                    "http://rss.art19.com/the-daily",
+                }},
+                { "Fireside", new List<string> {
+                    "https://feeds.fireside.fm/bibleinayear/rss",
+                }},
+                { "Megaphone", new List<string> {
+                    "https://feeds.megaphone.fm/ADL9840290619",
+                    "https://feeds.megaphone.fm/WWO3519750118",
+                }},
+                { "WNYC", new List<string> {
+                    "http://feeds.wnyc.org/experiment_podcast",
+                }},
+                { "Acast", new List<string> {
+                    "https://rss.acast.com/unraveled",
+                }},
+                { "Audioboom", new List<string> {
+                    "https://audioboom.com/channels/4997220.rss",
+                }},
+                { "NBC News", new List<string> {
+                    "https://podcastfeeds.nbcnews.com/dateline-nbc"
+                }},
+                { "Libsyn.com", new List<string> {
+                    "https://lincolnproject.libsyn.com/rss"
+                }},
             };
 
             var feedReader = new RSSFeedReader();
             var inactiveCompanyFeeds = feedReader.FindInactiveFeeds(companyFeeds, 5).Result;
 
-            Console.WriteLine("INACTIVE FEEDS");
+            Console.WriteLine("Inactive Companies");
             foreach (var company in inactiveCompanyFeeds)
             {
                 Console.WriteLine($" - {company}");
