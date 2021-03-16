@@ -1,0 +1,10 @@
+Art19,http://rss.art19.com/the-daily
+Art19,https://rss.art19.com/apology-line
+Fireside,https://feeds.fireside.fm/bibleinayear/rss
+Megaphone,https://feeds.megaphone.fm/ADL9840290619
+Megaphone,https://feeds.megaphone.fm/WWO3519750118
+WNYC,http://feeds.wnyc.org/experiment_podcast
+Acast,https://rss.acast.com/unraveled
+Audioboom,https://audioboom.com/channels/4997220.rss
+NBC News,https://podcastfeeds.nbcnews.com/dateline-nbc
+Libsyn,https://lincolnproject.libsyn.com/rss
